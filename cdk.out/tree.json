@@ -1,0 +1,118 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree"
+      },
+      "GlueProject": {
+        "id": "GlueProject",
+        "path": "GlueProject",
+        "children": {
+          "Glue-Job-Role": {
+            "id": "Glue-Job-Role",
+            "path": "GlueProject/Glue-Job-Role",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "GlueProject/Glue-Job-Role/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "glue.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    }
+                  }
+                }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "GlueProject/Glue-Job-Role/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "GlueProject/Glue-Job-Role/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "logs:*",
+                                "s3:*",
+                                "iam:*",
+                                "cloudwatch:*",
+                                "dynamodb:*",
+                                "glue:*"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": "*"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "GlueJobRoleDefaultPolicy1DC1C7DA",
+                        "roles": [
+                          {
+                            "Ref": "GlueJobRoleD29FD79E"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "glue-test-job": {
+            "id": "glue-test-job",
+            "path": "GlueProject/glue-test-job",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Glue::Job",
+              "aws:cdk:cloudformation:props": {
+                "command": {
+                  "name": "glueetl",
+                  "scriptLocation": "s3://base-nonprod/GlueETLScripts//hello.py"
+                },
+                "role": {
+                  "Fn::GetAtt": [
+                    "GlueJobRoleD29FD79E",
+                    "Arn"
+                  ]
+                },
+                "allocatedCapacity": 10
+              }
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "GlueProject/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "GlueProject/CDKMetadata/Default"
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "GlueProject/CDKMetadata/Condition"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
