@@ -93,7 +93,8 @@
                     "Arn"
                   ]
                 },
-                "allocatedCapacity": 10
+                "allocatedCapacity": 10,
+                "workerType": "G.1X"
               }
             }
           },

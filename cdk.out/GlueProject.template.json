@@ -64,7 +64,8 @@
             "Arn"
           ]
         },
-        "AllocatedCapacity": 10
+        "AllocatedCapacity": 10,
+        "WorkerType": "G.1X"
       },
       "Metadata": {
         "aws:cdk:path": "GlueProject/glue-test-job"

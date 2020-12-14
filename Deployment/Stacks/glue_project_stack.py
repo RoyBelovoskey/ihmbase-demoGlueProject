@@ -22,7 +22,7 @@ class ScheduledGlueJob (core.Stack):
         glue_job_role = iam.Role(self,'Glue-Job-Role',assumed_by=iam.ServicePrincipal('glue.amazonaws.com'))
         glue_job_role.add_to_policy(policy_statement)
         #define job
-        job = glue.CfnJob(self,'glue-test-job',role=glue_job_role.role_arn,allocated_capacity=10,command=glue.CfnJob.JobCommandProperty(name='glueetl',script_location='s3://base-nonprod/GlueETLScripts//hello.py'))
+        job = glue.CfnJob(self,'glue-test-job',role=glue_job_role.role_arn,allocated_capacity=10,worker_type="G.1X", command=glue.CfnJob.JobCommandProperty(name='glueetl',script_location='s3://base-nonprod/GlueETLScripts//hello.py'))
 
 # create inline statement, policy then role
 # statement = iam.PolicyStatement(actions=["s3:GetObject","s3:PutObject"],
